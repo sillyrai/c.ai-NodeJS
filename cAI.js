@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth'
+import StealthPlugin from 'puppeteer-extra-plugin-stealth' // Because cloudflare likes to be funny
 
 puppeteer.use(StealthPlugin())
 
@@ -20,19 +20,15 @@ class cAI{
   this.page = await this.browser.newPage();
 
   // Navigate to the page
-  console.log("Navigating to page")
   await this.page.goto(link);
 
   // Find a button with the text "Accept" (Its a disclaimer button)
-  console.log("Finding button")
   const [button] = await this.page.$x("//button[contains(., 'Accept')]");
 
   // Click the button
-  console.log("Clicking button")
   await button.click();
 
   // find text area with the id "user-input"
-  console.log("Finding text box")
   this.textbox = await this.page.$('#user-input');
   if(this.textbox == null){
     console.log("Could not find text box")
@@ -50,28 +46,22 @@ class cAI{
   async send(message){
     this.textbox = await this.page.$('#user-input');
     // Click the text box
-    console.log("Clicking text box")
     await this.textbox.click()
 
     // Type the message
-    console.log("Typing message")
     await this.textbox.type(message);
 
     // Press enter
-    console.log("Pressing enter")
     await this.textbox.press('Enter');
 
     // Wait for the response
-    console.log("Delaying for response")
    await this.page.waitForTimeout(10000);
 
     // Get the last object with the class "msg char-msg"
-    console.log("Getting response")
     var [response] = await this.page.$x("//div[contains(@class, 'msg char-msg')][last()]");
     
 
     // Get the text
-    console.log("Getting text")
     var text = await this.page.evaluate(el => el.textContent, response);
 
     // The text is written word by word by the bot, so we need to check time to time if the text is complete. We can do that by comparing the old message length with the new message length
@@ -85,9 +75,7 @@ class cAI{
       newLength = text.length;
     }
 
-
     // Return the text
-    console.log("Returning text")
     return text;
 
   }
