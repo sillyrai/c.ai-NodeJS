@@ -1,0 +1,17 @@
+{
+  "name": "cai",
+  "version": "1.0.0",
+  "description": "Interacting with the c.ai website via code",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rai",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^19.6.3",
+    "puppeteer-extra": "^3.3.4",
+    "puppeteer-extra-plugin-stealth": "^2.11.1"
+  }
+}
