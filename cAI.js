@@ -57,11 +57,31 @@ class cAI{
 
       text = text.replace(/<em>/g, "*")
       text = text.replace(/<\/em>/g, "*")
+
+      text = text.replace(/<strong>/g, "**")
+      text = text.replace(/<\/strong>/g, "**")
+
       text = text.replace(/<[^>]*>?/gm, '');
 
       newLength = text.length;
     }
     return text;
+  }
+
+  async getInitialMessage(){
+    // get the first message from the bot (the initial message)
+    const [response] = await this.page.$x("//div[contains(@class, 'msg char-msg')][1]");
+    var text = await this.page.evaluate(el => el.innerHTML, response);
+
+    text = text.replace(/<em>/g, "*")
+    text = text.replace(/<\/em>/g, "*")
+
+    text = text.replace(/<strong>/g, "**")
+    text = text.replace(/<\/strong>/g, "**")
+
+    text = text.replace(/<[^>]*>?/gm, '');
+
+    return text
   }
 }
 
