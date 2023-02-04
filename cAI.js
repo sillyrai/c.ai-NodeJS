@@ -1,12 +1,12 @@
 import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth' // Epic cloudflare moment
+import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 
 puppeteer.use(StealthPlugin())
 
 class cAI{
   async init(link){
     this.browser = await puppeteer.launch({
-      headless: false, // it needs to run in an actual window otherwise some weird bugs happen idk
+      headless: false,
       args: [
           '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
       ],
@@ -30,7 +30,6 @@ class cAI{
   // delay for a second to let the page load
   await this.page.waitForTimeout(3000);
 }
-
 
   async send(message){
     this.textbox = await this.page.$('#user-input');
@@ -56,13 +55,11 @@ class cAI{
       const [response] = await this.page.$x("//div[contains(@class, 'msg char-msg')][last()]");
       text = await this.page.evaluate(el => el.innerHTML, response);
 
-      // Filter out the HTML tags and replace them with the correct text
-      text = text.replace("<em>", "*")
-      text = text.replace("</em>", "*")
+      text = text.replace(/<em>/g, "*")
+      text = text.replace(/<\/em>/g, "*")
       text = text.replace(/<[^>]*>?/gm, '');
 
       newLength = text.length;
-
     }
     return text;
   }
