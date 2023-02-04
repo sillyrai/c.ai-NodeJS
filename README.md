@@ -7,6 +7,8 @@ import cAI from "./cAI.js";
 var ai = new cAI();
 await ai.init('<LINK TO CHARACTER>'); // for example https://beta.character.ai/chat?char=ABCDEFGH123456
 
+console.log(await ai.getInitialMessage());
+
 var msg = await ai.send("Hello");
 console.log(msg) // Response from the AI
 
