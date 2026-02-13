@@ -10,7 +10,7 @@
   "author": "Rai",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^19.6.3",
+    "puppeteer": "^24.22.3",
     "puppeteer-extra": "^3.3.4",
     "puppeteer-extra-plugin-stealth": "^2.11.1"
   }
